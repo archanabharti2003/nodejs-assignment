@@ -1,0 +1,182 @@
+Q1...
+
+var http=require('http');
+
+const server=http.createServer((req,res)=>{
+    if(req.url=='/hello'){
+        res.end("Hello,students!")
+    }
+    else{
+        res.writeHead(404);
+        res.end("Use the right url");
+    }
+});
+
+server.listen(8000,()=>{
+    console.log("Server got started");
+})
+
+
+
+Q2...
+
+const fs= require('fs');
+
+
+//sync way
+const content=fs.readFileSync('input.txt');
+
+console.log("The content is "+ content+ " which is read synchrounously.");
+
+//async way
+
+const asy_content=fs.readFile('input.txt',(err,content)=>{
+    if(err){
+        return console.log(err);
+    }
+    console.log("The content is"+content+ " which is read asynchronously.");
+})
+
+//write
+
+//sync
+fs.writeFileSync('output.txt','Node js is javascript run time environment.')
+
+
+//async
+fs.writeFile('Output.txt','Hello , a very good morining',err=>{
+    if(err){
+        return console.log(err)
+    }
+    console.log('written successfully');
+})
+
+Q3....
+
+var http=require('http');
+
+const server=http.createServer((req,res)=>{
+    if(req.url=='/'){
+        res.end("Hello,world!")
+    }
+    else{
+        res.writeHead(404);
+        res.end("Page not found");
+    }
+});
+
+server.listen(8800,()=>{
+    console.log("Server got started");
+})
+
+Q4....
+
+// Import the os module
+const os = require('os');
+
+// Get information about the current operating system
+const osInfo = {
+  platform: os.platform(),
+  type: os.type(),
+  release: os.release(),
+  architecture: os.arch(),
+  totalMemory: os.totalmem(),
+  freeMemory: os.freemem(),
+
+};
+
+// Display the retrieved information
+console.log('Operating System Information:');
+console.log('Platform:', osInfo.platform);
+console.log('Type:', osInfo.type);
+console.log('Release:', osInfo.release);
+console.log('Architecture:', osInfo.architecture);
+console.log('Total Memory:', formatBytes(osInfo.totalMemory));
+console.log('Free Memory:', formatBytes(osInfo.freeMemory));
+
+// Helper function to format bytes
+function formatBytes(bytes) {
+  const kb = bytes / 1024;
+  const mb = kb / 1024;
+  return mb.toFixed(2) + ' MB';
+}
+
+
+Q5...
+
+
+const path = require('path');
+
+// Example file path
+const filePath = 'C:\Users\bhart\OneDrive\Desktop\nodejs assignment\input.txt';
+
+// Get the file name from the file path
+const fileName = path.basename(filePath);
+console.log('File Name:', fileName);
+
+// Get the directory name from the file path
+const directoryName = path.dirname(filePath);
+console.log('Directory Name:', directoryName);
+
+// Join paths together
+const joinedPath = path.join('/home/user', 'documents', 'example.txt');
+console.log('Joined Path:', joinedPath);
+
+// Resolve an absolute path
+const absolutePath = path.resolve('example.txt');
+console.log('Absolute Path:', absolutePath);
+
+// Normalize a path
+const normalizedPath = path.normalize('/home/user/../documents/example.txt');
+console.log('Normalized Path:', normalizedPath);
+
+// Check if a path is absolute
+const isAbsolutePath = path.isAbsolute('/home/user/documents/example.txt');
+console.log('Is Absolute Path:', isAbsolutePath);
+
+
+Q6...
+const readline = require('readline');
+
+// Create a readline interface
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Function to perform basic arithmetic operations
+function performOperation(operator, num1, num2) {
+  switch (operator) {
+    case '+':
+      return num1 + num2;
+    case '-':
+      return num1 - num2;
+    case '*':
+      return num1 * num2;
+    case '/':
+      // Check if the denominator is not zero
+      return num2 !== 0 ? num1 / num2 : 'Cannot divide by zero';
+    default:
+      return 'Invalid operator';
+  }
+}
+
+// Get user input for the operation and numbers
+rl.question('Enter operator (+, -, *, /): ', (operator) => {
+  rl.question('Enter first number: ', (num1) => {
+    rl.question('Enter second number: ', (num2) => {
+      // Convert input to numbers
+      num1 = parseFloat(num1);
+      num2 = parseFloat(num2);
+
+      // Perform the operation
+      const result = performOperation(operator, num1, num2);
+
+      // Display the result
+      console.log(`Result: ${result}`);
+
+      // Close the readline interface
+      rl.close();
+    });
+  });
+});
